@@ -143,6 +143,13 @@ app.use((err, _req, res, _next) => {
   res.status(500).json({ error: 'An unexpected server error occurred.' });
 });
 
-ensureJsonFile(ORDERS_FILE, []);
-ensureJsonFile(SUBSCRIBERS_FILE, []);
-app.listen(PORT, () => console.log(`FoodieHub backend is running at http://localhost:${PORT}`));
+if (require.main === module) {
+  ensureJsonFile(ORDERS_FILE, []);
+  ensureJsonFile(SUBSCRIBERS_FILE, []);
+
+  app.listen(PORT, () => {
+    console.log(`FoodieHub backend is running at http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
